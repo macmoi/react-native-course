@@ -29,8 +29,8 @@ steps:
 #   displayName: 'npm, expo and turtle install'
 
 - bash: |
-    echo $env:M_EXPO_USER
-    echo $env:M_EXPO_PASS
+    echo $(EXPO_USER)
+    echo $(EXPO_PASS)
   env:
     M_EXPO_USER: $(EXPO_USER)
     M_EXPO_PASS: $(EXPO_PASS)
