@@ -22,25 +22,15 @@ steps:
   displayName: 'Install Node.js'
 
 
-- bash: |
-    npm install
-    npm install -g expo-cli
-    npm install -g turtle-cli
-  displayName: 'npm, expo and turtle install'
+# - bash: |
+#     npm install
+#     npm install -g expo-cli
+#     npm install -g turtle-cli
+#   displayName: 'npm, expo and turtle install'
 
 - bash: |
-    expo login -u $env:M_EXPO_USER -p $env:M_EXPO_PASS
-    expo publish --non-interactive --release-channel deployment
-    expo build:android -t apk --non-interactive
-
-    turtle setup:android EXPO_ANDROID_KEYSTORE_PASSWORD=$env:M_ANDROID_KEYSTORE_PASSWORD EXPO_ANDROID_KEY_PASSWORD=$env:M_ANDROID_KEY_PASSWORD
-    turtle build:android -u $(EXPO_USER) -p $(EXPO_PASSWORD) --keystore-path $(AndroidKeystore.secureFilePath) --keystore-alias $env:M_ANDROID_KEY_ALIAS -t apk --release-channel deployment
-
-    cd /Users/runner/expo-apps/
-
-    echo "##vso[task.setvariable variable=androidArtifact]$A"
-    echo "File name to publish Android"
-    echo $A
+    echo $env:M_EXPO_USER
+    echo $env:M_EXPO_PASS
   env:
     M_EXPO_USER: $(EXPO_USER)
     M_EXPO_PASS: $(EXPO_PASS)
@@ -49,9 +39,9 @@ steps:
     M_ANDROID_KEY_ALIAS: $(ANDROID_KEY_ALIAS)
   displayName: 'expo and turtle build'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: "/users/runner/expo-apps/$(androidArtifact)"
-    ArtifactName: 'android'
-    publishLocation: 'Container'
-  displayName: 'Publish Android'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: "/users/runner/expo-apps/$(androidArtifact)"
+#     ArtifactName: 'android'
+#     publishLocation: 'Container'
+#   displayName: 'Publish Android'
