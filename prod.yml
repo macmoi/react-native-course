@@ -7,7 +7,7 @@ pool:
   vmImage: macOS-latest
   
 variables:
-  group: AppDeploy
+ - group: AppDeploy
 
 steps:
 - task: DownloadSecureFile@1
