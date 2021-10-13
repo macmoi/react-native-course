@@ -21,38 +21,37 @@ steps:
     versionSpec: '14.x'
   displayName: 'Install Node.js'
 
-- script: |
-    echo $(EXPO_USER)
-    echo $(EXPO_PASS)
-    echo $(ANDROID_KEYSTORE_PASSWORD)
-    echo $(ANDROID_KEY_PASSWORD)
-    echo $(ANDROID_KEY_ALIAS)
 
-# - script: |
-#     npm install
-#     npm install -g expo-cli
-#     npm install -g turtle-cli
-#   displayName: 'npm, expo and turtle install'
+- bash: |
+    npm install
+    npm install -g expo-cli
+    npm install -g turtle-cli
+  displayName: 'npm, expo and turtle install'
 
-# - script: |
-#     expo login -u $(EXPO_USER) -p $(EXPO_PASS)
-#     expo publish --non-interactive --release-channel deployment
-#     expo build:android -t apk --non-interactive
+- bash: |
+    expo login -u $env:M_EXPO_USER -p $env:M_EXPO_PASS
+    expo publish --non-interactive --release-channel deployment
+    expo build:android -t apk --non-interactive
 
-#     turtle setup:android EXPO_ANDROID_KEYSTORE_PASSWORD=$(ANDROID_KEYSTORE_PASSWORD) EXPO_ANDROID_KEY_PASSWORD=$(ANDROID_KEY_PASSWORD) 
-#     turtle build:android -u $(EXPO_USER) -p $(EXPO_PASSWORD) --keystore-path $(AndroidKeystore.secureFilePath) --keystore-alias $(ANDROID_KEY_ALIAS) -t apk --release-channel deployment
+    turtle setup:android EXPO_ANDROID_KEYSTORE_PASSWORD=$env:M_ANDROID_KEYSTORE_PASSWORD EXPO_ANDROID_KEY_PASSWORD=$env:M_ANDROID_KEY_PASSWORD
+    turtle build:android -u $(EXPO_USER) -p $(EXPO_PASSWORD) --keystore-path $(AndroidKeystore.secureFilePath) --keystore-alias $env:M_ANDROID_KEY_ALIAS -t apk --release-channel deployment
 
-#     cd /Users/runner/expo-apps/
+    cd /Users/runner/expo-apps/
 
-#     echo "##vso[task.setvariable variable=androidArtifact]$A"
-#     echo "File name to publish Android"
-#     echo $A
-#   displayName: "expo and turtle build"
+    echo "##vso[task.setvariable variable=androidArtifact]$A"
+    echo "File name to publish Android"
+    echo $A
+  env:
+    M_EXPO_USER: $(EXPO_USER)
+    M_EXPO_PASS: $(EXPO_PASS)
+    M_ANDROID_KEYSTORE_PASSWORD: $(ANDROID_KEYSTORE_PASSWORD)
+    M_ANDROID_KEY_PASSWORD: $(ANDROID_KEY_PASSWORD)
+    M_ANDROID_KEY_ALIAS: $(ANDROID_KEY_ALIAS)
+  displayName: 'expo and turtle build'
 
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: "/users/runner/expo-apps/$(androidArtifact)"
-#     ArtifactName: 'android'
-#     publishLocation: 'Container'
-    
-#   displayName: 'Publish Android'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: "/users/runner/expo-apps/$(androidArtifact)"
+    ArtifactName: 'android'
+    publishLocation: 'Container'
+  displayName: 'Publish Android'
