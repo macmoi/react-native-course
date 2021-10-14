@@ -25,3 +25,8 @@ steps:
     echo $(EXPO_USER)
     echo $(EXPO_PASS)
   displayName: 'User and password'
+
+- script: |
+    echo $(EXPO_USER)
+    echo $(EXPO_PASS)
+  displayName: 'User and password again'
