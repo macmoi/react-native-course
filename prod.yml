@@ -28,6 +28,8 @@ steps:
   displayName: 'npm, expo and turtle install'
 
 - script: |
+    echo $(EXPO_USER)
+    echo $(EXPO_PASSWORD)
     expo login -u $(EXPO_USER) -p $(EXPO_PASSWORD)
     expo publish --non-interactive --release-channel deployment
     expo build:android -t apk --non-interactive
