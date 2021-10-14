@@ -15,7 +15,6 @@ stages:
   - stage: Build
     displayName: 'Build Android'
     jobs:
-
       - job: BuildAndroid
         displayName: 'Build Android'
         pool:
@@ -69,13 +68,14 @@ stages:
               publishLocation: 'Container'
             displayName: 'Publish Android'
 
-      - job: DeployAndroid
+  - stage: DeployAndroid
+    displayName: 'Deploy Android'
+    jobs:
+      - job: DeployAndroidToAppCenter
         displayName: 'Deploy Android to App Center'
-        dependsOn: Build
-        condition: succeeded()
         pool:
           vmImage: $(vmImage)
-
+        
         steps:
           - bash: |
-              echo 'TODO: deploy to app center'        
+              echo 'TODO: App center deploy'
