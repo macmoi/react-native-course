@@ -8,14 +8,14 @@ trigger:
 
 resources:
   repositories:
-  - repository: Templates
+  - repository: templates
     name: 'React Native Deploy Practice/Templates'
     type: git
     ref: 'main'
   - repository: self
 
 stages:
-- template: multistage_general.yml@Templates
+- template: multistage_general.yml@templates
   parameters:
     variableGroupBuild: 'AppDeploy'
   
