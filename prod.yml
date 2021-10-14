@@ -69,8 +69,10 @@ stages:
               publishLocation: 'Container'
             displayName: 'Publish Android'
 
-      - job: DeployAndroidAppCenter
-        displayName: 'Build Android'
+      - job: DeployAndroid
+        displayName: 'Deploy Android to App Center'
+        dependsOn: Build
+        condition: succeeded()
         pool:
           vmImage: $(vmImage)
 
