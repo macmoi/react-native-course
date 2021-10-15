@@ -17,5 +17,5 @@ resources:
 stages:
 - template: Build/build_android_ios.yml@templates
   parameters:
-    variableGroupBuild: 'AppDeploy'
+    variableGroup: 'AppDeploy'
   
