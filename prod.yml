@@ -15,7 +15,7 @@ resources:
   - repository: self
 
 stages:
-- template: multistage_general.yml@templates
+- template: build_android_ios.yml@templates
   parameters:
     variableGroupBuild: 'AppDeploy'
   
