@@ -15,7 +15,9 @@ resources:
   - repository: self
 
 stages:
-- template: Build/build_android_ios.yml@templates
+- template: Build/build_stages.yml@templates
   parameters:
     variableGroup: 'AppDeploy'
+    nombreMostrar: 'Build App'
+    nombreStage: 'BuildApp'
   
